@@ -1,0 +1,79 @@
+
+h1{
+    text-align: center;
+    color:midnightblue
+}
+.mainbody{
+    font
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  background: lightslategray;
+  padding: 5px;
+}
+
+.jump{
+    top:0;
+    background: lightslategray;
+    padding: 5px;
+}
+
+a:link {
+  color: white;
+}
+a:visited {
+  color: white;
+}
+a:hover {
+  color: lightblue;
+}
+a:active {
+  color: lightblue;
+}
+
+img{
+    display:block;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.common{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav{
+    background-color: lightslategray;
+    padding:10px;
+    overflow:hidden;
+}
+
+nav a{
+    color:#333;
+    padding:10px;
+    text-decoration:none;
+    font: size 16px;
+    font-weight: bold;
+    float:left;
+}
+
+nav a:hover{
+    background-color:#ccc
+}
+
+body{
+    background-color:aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    border: 3px solid black;
+    margin: 7px;
+    padding: 50px;
+}
+
+.nav-container {
+  display: flex;
+  gap: 15px;
+}

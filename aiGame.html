@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Utah Geography Game</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  #game-container {
+    position: relative;
+    width: 500px;
+    margin: 20px auto;
+  }
+
+  #map {
+    width: 100%;
+    display: block;
+  }
+
+  #overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+  }
+
+  #question {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  #score {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  #message {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>How well do you know Utah?</h1>
+<p>Click the correct location. Get 3 in a row to win!</p>
+
+<div id="question"></div>
+<div id="score">Streak: 0</div>
+<div id="message"></div>
+
+<div id="game-container">
+
+  <img id="map" src="../Images/Utah Outline.png" alt="Utah Map">
+
+  <div id="overlay">
+
+    <!-- Adjusted placements (refined) -->
+    <div class="dot" data-name="Salt Lake City" style="top: 26%; left: 52%;"></div>
+    <div class="dot" data-name="Ogden" style="top: 18%; left: 50%;"></div>
+    <div class="dot" data-name="Logan" style="top: 8%; left: 52%;"></div>
+
+    <div class="dot" data-name="Provo" style="top: 30%; left: 52%;"></div>
+
+    <div class="dot" data-name="Moab" style="top: 76%; left: 84%;"></div>
+
+    <div class="dot" data-name="St. George" style="top: 92%; left: 16%;"></div>
+
+  </div>
+</div>
+
+<script>
+const dots = document.querySelectorAll('.dot');
+const questionEl = document.getElementById('question');
+const scoreEl = document.getElementById('score');
+const messageEl = document.getElementById('message');
+
+let locations = Array.from(dots).map(d => d.dataset.name);
+
+let order = [];
+let index = 0;
+let currentAnswer = '';
+let streak = 0;
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function newQuestion() {
+  if (order.length === 0 || index >= order.length) {
+    order = shuffle([...locations]);
+    index = 0;
+  }
+
+  currentAnswer = order[index];
+  index++;
+
+  questionEl.textContent = "Find: " + currentAnswer;
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const guess = dot.dataset.name;
+
+    if (guess === currentAnswer) {
+      streak++;
+      messageEl.textContent = "Correct!";
+    } else {
+      streak = 0;
+      messageEl.textContent = "Wrong! That was " + guess;
+    }
+
+    scoreEl.textContent = "Streak: " + streak;
+
+    if (streak >= 3) {
+      messageEl.textContent = "You win! Refresh to play again.";
+      questionEl.textContent = "";
+    } else {
+      newQuestion();
+    }
+  });
+});
+
+newQuestion();
+</script>
+
+</body>
+</html>
